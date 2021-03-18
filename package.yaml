@@ -1,0 +1,62 @@
+name:                sky-lambda
+version:             0.1.0.0
+github:              "xicesky/sky-lambda"
+license:             BSD3
+license-file:        LICENSE
+author:              "Markus Dangl"
+maintainer:          "sky@q1cc.net"
+copyright:           "(c) 2016 Markus Dangl"
+
+extra-source-files:
+- README.md
+- LICENSE
+
+# Metadata used when publishing your package
+synopsis:            Simple untyped lambda calculus
+category:            Language
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/xicesky/sky-lambda#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- mtl
+- transformers
+- unordered-containers
+- megaparsec
+- wl-pprint >= 1.2
+- sky-utils >= 0.2
+
+ghc-options:
+  -fwarn-tabs
+  -fwarn-missing-signatures
+  -fwarn-incomplete-patterns
+  # -- -fwarn-name-shadowing  -- Happens too often and is usually ok
+  # -- -fwarn-unused-imports  -- Generates a load of warnings in main
+
+library:
+  source-dirs: src
+
+executables:
+  typelevel-experiments-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - sky-lambda
+
+tests:
+  typelevel-experiments-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - sky-lambda

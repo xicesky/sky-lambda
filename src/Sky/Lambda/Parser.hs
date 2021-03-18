@@ -6,17 +6,19 @@
 
 module Sky.Lambda.Parser where
 
+import Data.Void (Void)
 import Control.Monad (void)
 
 import Text.Megaparsec
-import Text.Megaparsec.Expr
-import Text.Megaparsec.String
-import qualified Text.Megaparsec.Lexer as L
+import Text.Megaparsec.Char
+import qualified Text.Megaparsec.Char.Lexer as L
 
 import Sky.Lambda.AST
 
 ----------------------------------------------------------------------------------------------------
 -- Definitons
+
+type Parser = Parsec Void String
 
 -- reservedWords :: [String]
 -- reservedWords = ["def"]
@@ -105,13 +107,10 @@ variable = LVariable <$> identifier
 ----------------------------------------------------------------------------------------------------
 -- Helpers (for testing)
 
-testParser :: ( ShowErrorComponent e
-             , Ord (Token s)
-             , ShowToken (Token s)
-             , Show a )
+testParser :: (VisualStream s, TraversableStream s, ShowErrorComponent e)
     => Parsec e s a
     -> s
     -> a
 testParser p input = case parse p "" input of
-    Left  e -> error $ parseErrorPretty e
+    Left  e -> error $ errorBundlePretty e
     Right x -> x

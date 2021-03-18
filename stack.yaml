@@ -15,7 +15,7 @@
 # resolver:
 #  name: custom-snapshot
 #  location: "./custom-snapshot.yaml"
-resolver: lts-7.7
+resolver: lts-17.0
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -37,11 +37,13 @@ resolver: lts-7.7
 # will not be run. This is useful for tweaking upstream packages.
 packages:
 - '.'
-- '../sky-utils'
 
 # Dependency packages to be pulled from upstream that are not in the resolver
 # (e.g., acme-missiles-0.3)
-extra-deps: []
+extra-deps:
+- git: /Users/markus/Dev/haskell/sky-utils
+  commit: 2f21fd9ebf822dd42be30b008cd3c7670044c724
+- wl-pprint-1.2.1@sha256:aea676cff4a062d7d912149d270e33f5bb0c01b68a9db46ff13b438141ff4b7c,734
 
 # Override default flag values for local packages and extra-deps
 flags: {}
